@@ -2,6 +2,7 @@
 #include "SDL.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 //=============================================================================
 SDL_Window* gWindow = NULL;

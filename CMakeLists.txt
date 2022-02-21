@@ -22,7 +22,7 @@ endif()
 # Bunch of warnings and warnings as errors
 if (MSVC)
 	# warning level 4 and all warnings as errors
-	add_compile_options(/W4 /WX)
+	add_compile_options(/W3)
 else()
 	# lots of warnings and all warnings as errors
 	add_compile_options(-Wall -Wextra -pedantic -Werror -Wshadow -Wno-unused-parameter)
@@ -43,7 +43,7 @@ else()
 add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Image)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Image SDL2::Main)
 
 if(WIN32)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
