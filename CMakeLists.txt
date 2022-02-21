@@ -5,9 +5,12 @@ project(SDLGameTemplate VERSION 1.0 LANGUAGES CXX)
 
 # Add your sources here
 set(SOURCES
+  src/engine.h
   src/engine.cpp
   src/main.cpp
 )
+
+source_group("Headers" FILES src/engine.h)
 
 # Set a default build type if none was specified
 # Use -DCMAKE_BUILD_TYPE=XXX to se build type

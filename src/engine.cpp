@@ -12,7 +12,7 @@ static const Uint8* keyStates = NULL;
 static Uint8 lastKeyStates[SDL_NUM_SCANCODES];
 
 //=============================================================================
-bool InitPliers()
+bool InitSDL()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{

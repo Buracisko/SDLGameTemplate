@@ -51,7 +51,7 @@ Sprite LoadSprite(const char* path)
 //=============================================================================
 int main(int argc, char* argv[])
 {
-	if (!InitPliers())
+	if (!InitSDL())
 	{
 		return 1;
 	}
@@ -73,27 +73,40 @@ int main(int argc, char* argv[])
 
 //=============================================================================
 
-SDL_Rect rect = {0, 0, 64, 64};
-float xPos = 0;
+SDL_Rect rectangle = { 0, 0, 128, 128 };
+int speed = 256;
 
 void Update(float dt)
 {
-	xPos += 512 * dt;
-	rect.x = (float)(xPos + 0.5f);
-
 	int winWidth, winHeight;
 	SDL_GetWindowSize(gWindow, &winWidth, &winHeight);
 
-	if (rect.x > winWidth)
+	if (IsKeyDown(SDL_SCANCODE_LEFT))
+		rectangle.x -= (int)(speed * dt + 0.5f);
+	else if (IsKeyDown(SDL_SCANCODE_RIGHT))
+		rectangle.x += (int)(speed * dt + 0.5f);
+
+	if (IsKeyDown(SDL_SCANCODE_UP))
+		rectangle.y -= (int)(speed * dt + 0.5f);
+	else if (IsKeyDown(SDL_SCANCODE_DOWN))
+		rectangle.y += (int)(speed * dt + 0.5f);
+
+	if (rectangle.x + rectangle.w > winWidth)
 	{
-		
-		xPos = -rect.w;
-		rect.y += rect.h / 2;
+		rectangle.x = winWidth - rectangle.w;
+	}
+	else if (rectangle.x < 0)
+	{
+		rectangle.x = 0;
 	}
 
-	if (rect.y > winHeight)
+	if (rectangle.y < 0)
 	{
-		rect.y = -(rect.h / 2);
+		rectangle.y = 0;
+	}
+	else if (rectangle.y + rectangle.h > winHeight)
+	{
+		rectangle.y = winHeight - rectangle.h;
 	}
 
 	if (IsKeyDown(SDL_SCANCODE_ESCAPE))
@@ -115,7 +128,6 @@ void RenderFrame(float interpolation)
 	};
 	SDL_RenderCopy(gRenderer, street.texture, NULL, &backgroundRect);
 
-	// TODO: Get rid of this
 	SDL_SetRenderDrawColor(gRenderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(gRenderer, &rect);
+	SDL_RenderFillRect(gRenderer, &rectangle);
 }

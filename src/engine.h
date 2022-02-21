@@ -11,7 +11,7 @@ extern SDL_Window* gWindow;
 Initializes the SDL libraries.
 \return Its recommended to terminate aplication on failure.
 */
-bool InitPliers();
+bool InitSDL();
 
 /*!
 Destroy renderer and window.
