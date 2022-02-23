@@ -23,7 +23,7 @@ bool InitSDL()
 	/*
 	Texture filtering
 	0 or nearest - nearest pixel sampling
-	2 or linear - linear filtering (supported by OpenGL and Direct3D)
+	1 or linear - linear filtering (supported by OpenGL and Direct3D)
 	2 or best - anisotropic filtering (supported by Direct3D)
 	*/
 	if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0"))
