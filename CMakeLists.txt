@@ -7,6 +7,8 @@ project(SDLGameTemplate VERSION 1.0 LANGUAGES CXX)
 set(SOURCES
   src/engine.h
   src/engine.cpp
+  src/sprite.h
+  src/sprite.cpp
   src/main.cpp
 )
 

@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "sprite.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include <stdlib.h>
@@ -12,42 +13,8 @@ void RenderFrame(float dt);
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 576
 
-/*!
-Basic drawable sprite
-*/
-typedef struct Sprite
-{
-	SDL_Texture* texture;
-	SDL_Rect sourceRect;
-} Sprite;
-
 // Street texture
 Sprite street;
-
-//=============================================================================
-Sprite LoadSprite(const char* path)
-{
-	Sprite retSprite = {NULL, {0, 0, 0, 0}};
-
-	SDL_Texture* texture = IMG_LoadTexture(gRenderer, path);
-	if (texture == NULL)
-	{
-		fprintf(stderr, "IMG_LoadTexture error: %s\n", IMG_GetError());
-		return retSprite;
-	}
-
-	int w, h;
-	if (SDL_QueryTexture(texture, NULL, NULL, &w, &h) < 0)
-	{
-		fprintf(stderr, "SDL_QueryTexture error: %s\n", SDL_GetError());
-		return retSprite;
-	}
-
-	retSprite.texture = texture;
-	retSprite.sourceRect = {0, 0, w, h};
-	
-	return retSprite;
-}
 
 //=============================================================================
 int main(int argc, char* argv[])
