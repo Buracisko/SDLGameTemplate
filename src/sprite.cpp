@@ -2,6 +2,7 @@
 #include "engine.h"
 #include "SDL.h"
 #include "SDL_image.h"
+#include <stdio.h>
 
 //=============================================================================
 Sprite LoadSprite(const char* path)
@@ -26,4 +27,10 @@ Sprite LoadSprite(const char* path)
 	retSprite.sourceRect = {0, 0, w, h};
 	
 	return retSprite;
+}
+
+void FreeSprite(Sprite sprite)
+{
+	if (sprite.texture)
+		SDL_DestroyTexture(sprite.texture);
 }

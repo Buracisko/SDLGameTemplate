@@ -11,3 +11,5 @@ typedef struct Sprite
 } Sprite;
 
 Sprite LoadSprite(const char* path);
+
+void FreeSprite(Sprite sprite);

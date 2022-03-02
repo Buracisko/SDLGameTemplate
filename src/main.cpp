@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	// Push functions to the game loop
 	StartLoop(Update, RenderFrame);
 
-	SDL_DestroyTexture(street.texture);
+	FreeSprite(street);
 	CleanUp();
 	return 0;
 }

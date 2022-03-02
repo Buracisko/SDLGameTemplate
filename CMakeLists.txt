@@ -12,7 +12,10 @@ set(SOURCES
   src/main.cpp
 )
 
-source_group("Headers" FILES src/engine.h)
+source_group("Headers" FILES
+	src/engine.h
+	src/sprite.h
+)
 
 # Set a default build type if none was specified
 # Use -DCMAKE_BUILD_TYPE=XXX to se build type
