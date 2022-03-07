@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Rename the project here
-project(ExampleSDLGame VERSION 1.0 LANGUAGES CXX)
+project(SDLGameTemplate VERSION 1.0 LANGUAGES CXX)
 
 # Add your sources here
 set(SOURCES
