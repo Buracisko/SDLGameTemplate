@@ -53,6 +53,11 @@ set(SDL2_MIXER_NO_DEFAULT_PATH TRUE)
 set(SDL2_MIXER_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL_Mixer CACHE PATH "" FORCE)
 find_package(SDL2_mixer REQUIRED)
 
+# SDL_ttf
+set(SDL2_TTF_NO_DEFAULT_PATH TRUE)
+set(SDL2_TTF_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL_ttf CACHE PATH "" FORCE)
+find_package(SDL2_ttf REQUIRED)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -63,7 +68,7 @@ else()
 add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image SDL2::Mixer)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image SDL2::Mixer SDL2::TTF)
 
 if(WIN32)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -84,5 +89,7 @@ if(WIN32)
           "${SDL2_MIXER_PATH}/lib/x64/libmpg123-0.dll"
           "${SDL2_MIXER_PATH}/lib/x64/libmodplug-1.dll"
           "${SDL2_MIXER_PATH}/lib/x64/libFLAC-8.dll"
+          "${SDL2_TTF_PATH}/lib/x64/SDL2_ttf.dll"
+
 	    	  $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 endif()
