@@ -36,9 +36,16 @@ else()
 	add_compile_options(-Wall -Wextra -pedantic -Werror -Wshadow -Wno-unused-parameter)
 endif()
 
-# SDL2
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+
+# SDL2
+set(SDL2_NO_DEFAULT_PATH TRUE)
+set(SDL2_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2_Linux CACHE PATH "" FORCE)
 find_package(SDL2 REQUIRED)
+
+# SDL_Image
+set(SDL2_IMAGE_NO_DEFAULT_PATH TRUE)
+set(SDL2_IMAGE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL_Image_Linux CACHE PATH "" FORCE)
 find_package(SDL2_image REQUIRED)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -51,7 +58,7 @@ else()
 add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Image SDL2::Main)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image)
 
 if(WIN32)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -60,5 +67,8 @@ if(WIN32)
           "${SDL2_IMAGE_PATH}/lib/x64/SDL2_Image.dll"
           "${SDL2_IMAGE_PATH}/lib/x64/zlib1.dll"
           "${SDL2_IMAGE_PATH}/lib/x64/libpng16-16.dll"
+          "${SDL2_IMAGE_PATH}/lib/x64/libjpeg-9.dll"
+          "${SDL2_IMAGE_PATH}/lib/x64/libtiff-5.dll"
+          "${SDL2_IMAGE_PATH}/lib/x64/libwebp-7.dll"
 	    	  $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 endif()
