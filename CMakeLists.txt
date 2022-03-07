@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Rename the project here
-project(SDLGameTemplate VERSION 1.0 LANGUAGES CXX)
+project(ExampleSDLGame VERSION 1.0 LANGUAGES CXX)
 
 # Add your sources here
 set(SOURCES
@@ -90,6 +90,5 @@ if(WIN32)
           "${SDL2_MIXER_PATH}/lib/x64/libmodplug-1.dll"
           "${SDL2_MIXER_PATH}/lib/x64/libFLAC-8.dll"
           "${SDL2_TTF_PATH}/lib/x64/SDL2_ttf.dll"
-
 	    	  $<TARGET_FILE_DIR:${PROJECT_NAME}>)
 endif()

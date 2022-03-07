@@ -1,6 +1,7 @@
 #include "engine.h"
 #include "SDL.h"
 #include "SDL_image.h"
+#include "SDL_ttf.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -15,7 +16,7 @@ static Uint8 lastKeyStates[SDL_NUM_SCANCODES];
 //=============================================================================
 bool InitSDL()
 {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 	{
 		fprintf(stderr, "SDL_Init failed: %s\n", SDL_GetError());
 		return false;
@@ -23,9 +24,14 @@ bool InitSDL()
 
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
-    fprintf(stderr, "IMG_Init failed: %s\n", IMG_GetError());
-    return false;
-  }
+		fprintf(stderr, "IMG_Init failed: %s\n", IMG_GetError());
+		return false;
+	}
+
+	if (TTF_Init() < 0) {
+		fprintf(stderr, "TTF_Init failed: %s\n", TTF_GetError());
+		return false;
+	}
 
 	/*
 	Texture filtering
