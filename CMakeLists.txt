@@ -30,6 +30,9 @@ endif()
 # SDL2
 add_subdirectory(libraries/SDL2)
 
+# SDL_mixer
+add_subdirectory(libraries/SDL_mixer)
+
 # SDL_ttf
 add_subdirectory(libraries/SDL_ttf)
 add_library(SDL2::ttf ALIAS SDL2_ttf)
@@ -61,8 +64,7 @@ else()
 add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
-#target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image SDL2::Mixer SDL2::TTF)
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::image SDL2::ttf)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2main SDL2::image SDL2::ttf SDL2::mixer)
 
 if(WIN32)
 	add_custom_command(

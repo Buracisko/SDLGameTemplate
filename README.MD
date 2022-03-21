@@ -15,6 +15,15 @@ target_include_directories(SDL2_ttf
 
 SDL_Image needs an fix regarding -fPIC
 
+Update SDL_mixer include_directories and make a PR
+~~~
+target_include_directories(SDL2_mixer
+    PUBLIC include
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+~~~
+This is just a temp solution. Proper fix should be as with the SDL_ttf
+
 ~~~
 git clone https://github.com/Buracisko/SDLGameTemplate.git SDLGameTemplate
 cd SDLGameTemplate
