@@ -1,7 +1,7 @@
 #include "engine.h"
 #include "SDL.h"
 #include "SDL_image.h"
-//#include "SDL_ttf.h"
+#include "SDL_ttf.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
