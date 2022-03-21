@@ -1,7 +1,7 @@
 #include "engine.h"
-//#include "sprite.h"
+#include "sprite.h"
 #include "SDL.h"
-//#include "SDL_image.h"
+#include "SDL_image.h"
 //#include "SDL_mixer.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -15,7 +15,7 @@ void RenderFrame(float dt);
 #define WINDOW_HEIGHT 576
 
 // Street texture
-//Sprite street;
+Sprite street;
 
 //=============================================================================
 int main(int argc, char* argv[])
@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	//street = LoadSprite("assets/cyberpunk-street.png");
+	street = LoadSprite("assets/cyberpunk-street.png");
 
 	// Push functions to the game loop
 	StartLoop(Update, RenderFrame);
@@ -57,7 +57,6 @@ void RenderFrame(float interpolation)
 	SDL_RenderClear(gRenderer);
 
 	// Draw sprite (scaled by factor of 3)
-	/*
 	int pixelAmp = 3;
 	SDL_Rect backgroundRect = {
 		0,
@@ -66,5 +65,4 @@ void RenderFrame(float interpolation)
 		street.sourceRect.h * pixelAmp
 	};
 	SDL_RenderCopy(gRenderer, street.texture, NULL, &backgroundRect);
-	*/
 }

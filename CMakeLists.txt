@@ -7,16 +7,14 @@ project(SDL2Game VERSION 1.0 LANGUAGES CXX)
 set(SOURCES
 	src/engine.h
 	src/engine.cpp
-	# Disable sprite for now
-	#src/sprite.h
-	#src/sprite.cpp
+	src/sprite.h
+	src/sprite.cpp
 	src/main.cpp
 )
 
 source_group("Headers" FILES
 	src/engine.h
-	# Disable sprite for now
-	#src/sprite.h
+	src/sprite.h
 )
 
 # Set a default build type if none was specified
@@ -31,6 +29,11 @@ endif()
 
 # SDL2
 add_subdirectory(libraries/SDL2)
+# SDL_image
+if (NOT MSVC)
+	add_compile_options(-fPIC)
+endif()
+add_subdirectory(libraries/SDL_image)
 
 # Bunch of warnings and warnings as errors
 if (MSVC)
@@ -53,7 +56,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
 #target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image SDL2::Mixer SDL2::TTF)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main)
+target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main SDL2::image)
 
 if(WIN32)
 	add_custom_command(
