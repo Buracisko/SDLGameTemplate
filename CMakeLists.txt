@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Rename the project here
-project(SDLGameTemplate VERSION 1.0 LANGUAGES CXX)
+project(SDL2Game VERSION 1.0 LANGUAGES CXX)
 
 # Add your sources here
 set(SOURCES
@@ -53,12 +53,13 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 endif()
 
 #target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::Core SDL2::Main SDL2::Image SDL2::Mixer SDL2::TTF)
-target_link_libraries(${PROJECT_NAME} SDL2::SDL2)
+target_link_libraries(${PROJECT_NAME} SDL2::SDL2 SDL2::SDL2main)
 
 if(WIN32)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-  	  COMMAND ${CMAKE_COMMAND} -E copy_if_different
-    	    "${SDL2_PATH}/lib/x64/SDL2.dll"
+  	  COMMAND ${CMAKE_COMMAND} -E copy_directory
+        $<TARGET_FILE_DIR:SDL2>
+    	    #"${SDL2_PATH}/lib/x64/SDL2.dll"
           #"${SDL2_IMAGE_PATH}/lib/x64/SDL2_Image.dll"
           #"${SDL2_IMAGE_PATH}/lib/x64/zlib1.dll"
           #"${SDL2_IMAGE_PATH}/lib/x64/libpng16-16.dll"
