@@ -78,6 +78,10 @@ if(WIN32)
 			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
 			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			$<TARGET_FILE_DIR:SDL2::mixer>
+			$<TARGET_FILE_DIR:${PROJECT_NAME}>
+
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
 			$<TARGET_FILE_DIR:SDL2::ttf>
 			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 	)
