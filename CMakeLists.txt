@@ -26,45 +26,40 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
 	set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release")
 endif()
 
-# SDL2 libraries
-add_subdirectory(libraries/SDL2)
-add_subdirectory(libraries/SDL_mixer)
-add_subdirectory(libraries/SDL_ttf)
-# Add alias if its still missing
-add_library(SDL2::ttf ALIAS SDL2_ttf)
-
-# SDL_image Linux hotfix building
-if (NOT MSVC)
-add_compile_options(-fPIC)
-endif()
-add_subdirectory(libraries/SDL_image)
-
-# Bunch of warnings and warnings as errors
-if (MSVC)
-	# warning level 4 and all warnings as errors
-	add_compile_options(/W3)
-else()
-	# lots of warnings and all warnings as errors
-	add_compile_options(-Wall -Wextra -pedantic -Werror -Wshadow -Wno-unused-parameter)
-endif()
-
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-if (WIN32)
+if (MSVC)
 	add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
+	# warning level 3
+	target_compile_options(${PROJECT_NAME} PRIVATE /W3)
 else()
-	add_executable(${PROJECT_NAME} ${SOURCES})
-endif()
+	# SDL2 libraries
+	add_subdirectory(libraries/SDL2)
+	add_subdirectory(libraries/SDL_mixer)
+	add_subdirectory(libraries/SDL_ttf)
+	# Add alias if its still missing
+	add_library(SDL2::ttf ALIAS SDL2_ttf)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-	SDL2::SDL2
-	SDL2::SDL2main
-	SDL2::image
-	SDL2::ttf
-	SDL2::mixer
-)
+	# SDL_image Linux hotfix building
+	if (NOT MSVC)
+	add_compile_options(-fPIC)
+	endif()
+	add_subdirectory(libraries/SDL_image)
+	add_executable(${PROJECT_NAME} ${SOURCES})
+
+	# lots of warnings and all warnings as errors
+	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror -Wshadow -Wno-unused-parameter)
+
+	target_link_libraries(${PROJECT_NAME} PRIVATE
+		SDL2::SDL2
+		SDL2::SDL2main
+		SDL2::image
+		SDL2::ttf
+		SDL2::mixer
+	)
+endif()
 
 add_custom_command(
 	TARGET ${PROJECT_NAME} POST_BUILD
@@ -73,7 +68,7 @@ add_custom_command(
 		$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
 )
 
-if(WIN32)
+if(MSVC)
 	add_custom_command(
 		TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_directory
