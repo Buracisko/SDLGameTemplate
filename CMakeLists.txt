@@ -7,14 +7,14 @@ project(SDL2Game VERSION 1.0 LANGUAGES CXX)
 set(SOURCES
 	src/engine.h
 	src/engine.cpp
-	src/sprite.h
-	src/sprite.cpp
+	#src/sprite.h
+	#src/sprite.cpp
 	src/main.cpp
 )
 
 source_group("Headers" FILES
 	src/engine.h
-	src/sprite.h
+	#src/sprite.h
 )
 
 # Set a default build type if none was specified
@@ -34,6 +34,17 @@ if (MSVC)
 	add_executable(${PROJECT_NAME} WIN32 ${SOURCES})
 	# warning level 3
 	target_compile_options(${PROJECT_NAME} PRIVATE /W3)
+
+	list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+	# SDL2
+	set(SDL2_NO_DEFAULT_PATH TRUE)
+	set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2-2.0.16" CACHE PATH "" FORCE)
+	find_package(SDL2 REQUIRED)
+
+	target_link_libraries(${PROJECT_NAME} PRIVATE
+		SDL2::Core
+		SDL2::Main
+	)
 else()
 	# SDL2 libraries
 	add_subdirectory(libraries/SDL2)
@@ -61,30 +72,30 @@ else()
 	)
 endif()
 
-add_custom_command(
-	TARGET ${PROJECT_NAME} POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E create_symlink
-		${CMAKE_SOURCE_DIR}/assets
-		$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
-)
+#add_custom_command(
+#	TARGET ${PROJECT_NAME} POST_BUILD
+#	COMMAND ${CMAKE_COMMAND} -E create_symlink
+#		${CMAKE_SOURCE_DIR}/assets
+#		$<TARGET_FILE_DIR:${PROJECT_NAME}>/assets
+#)
 
 if(MSVC)
 	add_custom_command(
-		TARGET ${PROJECT_NAME} POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_directory
-			$<TARGET_FILE_DIR:SDL2>
+		TARGET ${PROJECT_NAME} POST_BUILD 
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${SDL2_PATH}/lib/x64"
 			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-			$<TARGET_FILE_DIR:SDL2::image>
-			$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			#COMMAND ${CMAKE_COMMAND} -E copy_directory
+			#$<TARGET_FILE_DIR:SDL2::image>
+			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-			$<TARGET_FILE_DIR:SDL2::mixer>
-			$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			#COMMAND ${CMAKE_COMMAND} -E copy_directory
+			#$<TARGET_FILE_DIR:SDL2::mixer>
+			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			COMMAND ${CMAKE_COMMAND} -E copy_directory
-			$<TARGET_FILE_DIR:SDL2::ttf>
-			$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			#COMMAND ${CMAKE_COMMAND} -E copy_directory
+			#$<TARGET_FILE_DIR:SDL2::ttf>
+			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
 	)
 endif()

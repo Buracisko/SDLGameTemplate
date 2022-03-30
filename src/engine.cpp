@@ -1,7 +1,7 @@
 #include "engine.h"
 #include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
+//#include "SDL_image.h"
+//#include "SDL_ttf.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <string.h>
@@ -22,11 +22,13 @@ bool InitSDL()
 		return false;
 	}
 
+	/*
 	if (!(IMG_Init(IMG_INIT_PNG) & IMG_INIT_PNG))
 	{
 		fprintf(stderr, "IMG_Init failed: %s\n", IMG_GetError());
 		return false;
 	}
+	*/
 
 	/*
 	if (TTF_Init() < 0) {
