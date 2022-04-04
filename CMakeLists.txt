@@ -7,14 +7,14 @@ project(SDL2Game VERSION 1.0 LANGUAGES CXX)
 set(SOURCES
 	src/engine.h
 	src/engine.cpp
-	#src/sprite.h
-	#src/sprite.cpp
+	src/sprite.h
+	src/sprite.cpp
 	src/main.cpp
 )
 
 source_group("Headers" FILES
 	src/engine.h
-	#src/sprite.h
+	src/sprite.h
 )
 
 # Set a default build type if none was specified
@@ -36,14 +36,33 @@ if (MSVC)
 	target_compile_options(${PROJECT_NAME} PRIVATE /W3)
 
 	list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+
 	# SDL2
 	set(SDL2_NO_DEFAULT_PATH TRUE)
 	set(SDL2_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2-2.0.16" CACHE PATH "" FORCE)
 	find_package(SDL2 REQUIRED)
 
+	# SDL2_image
+	set(SDL2_IMAGE_NO_DEFAULT_PATH TRUE)
+	set(SDL2_IMAGE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2_image-2.0.5" CACHE PATH "" FORCE)
+	find_package(SDL2_image REQUIRED)
+
+	# SDL_Mixer
+	set(SDL2_MIXER_NO_DEFAULT_PATH TRUE)
+	set(SDL2_MIXER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2_mixer-2.0.4" CACHE PATH "" FORCE)
+	find_package(SDL2_mixer REQUIRED)
+
+	# SDL_ttf
+	set(SDL2_TTF_NO_DEFAULT_PATH TRUE)
+	set(SDL2_TTF_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries/SDL2_ttf-2.0.18" CACHE PATH "" FORCE)
+	find_package(SDL2_ttf REQUIRED)
+
 	target_link_libraries(${PROJECT_NAME} PRIVATE
 		SDL2::Core
 		SDL2::Main
+		SDL2::Image
+		SDL2::Mixer
+		SDL2::TTF
 	)
 else()
 	# SDL2 libraries
@@ -72,6 +91,7 @@ else()
 	)
 endif()
 
+#TODO: This needs elevated privileges on windows. Lets use some tailored script instead
 #add_custom_command(
 #	TARGET ${PROJECT_NAME} POST_BUILD
 #	COMMAND ${CMAKE_COMMAND} -E create_symlink
@@ -86,16 +106,16 @@ if(MSVC)
 			"${SDL2_PATH}/lib/x64"
 			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			#COMMAND ${CMAKE_COMMAND} -E copy_directory
-			#$<TARGET_FILE_DIR:SDL2::image>
-			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${SDL2_IMAGE_PATH}/lib/x64"
+			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			#COMMAND ${CMAKE_COMMAND} -E copy_directory
-			#$<TARGET_FILE_DIR:SDL2::mixer>
-			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${SDL2_MIXER_PATH}/lib/x64"
+			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 
-			#COMMAND ${CMAKE_COMMAND} -E copy_directory
-			#$<TARGET_FILE_DIR:SDL2::ttf>
-			#$<TARGET_FILE_DIR:${PROJECT_NAME}>
+			COMMAND ${CMAKE_COMMAND} -E copy_directory
+			"${SDL2_TTF_PATH}/lib/x64"
+			$<TARGET_FILE_DIR:${PROJECT_NAME}>
 	)
 endif()
