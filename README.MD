@@ -20,7 +20,7 @@ In this particular example its **SDLGameBuild**.
 In order to not copy all assets, make junction between your built game and asset folder in the source.
 It can be done via command line. In this particular case, the **SDLGameTemplate** and **SDLGameBuild** folders are in *C:/MyProjects*
 ~~~
-mklink /j "C:/MyProjects/SDLGameBuild/build/assets" "C:/MyProjects/SDLGameTemplate/assets"
+mklink /j "C:/MyProjects/SDLGameBuild/assets" "C:/MyProjects/SDLGameTemplate/assets"
 ~~~
 
 ### 4. Open and build project
