@@ -135,7 +135,7 @@ void StartLoop(void (*update)(float), void (*render)(float))
 
 		while (accumulator >= dt)
 		{
-			update(dt);
+			update((float)dt);
 			time += dt;
 			accumulator -= dt;
 		}
@@ -143,7 +143,7 @@ void StartLoop(void (*update)(float), void (*render)(float))
 		if (!isRunning)
 			break;
 
-		render(accumulator/dt);
+		render((float)(accumulator/dt));
 		SDL_RenderPresent(gRenderer);
 	}
 }

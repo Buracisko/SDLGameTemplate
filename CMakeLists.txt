@@ -80,7 +80,7 @@ else()
 	add_executable(${PROJECT_NAME} ${SOURCES})
 
 	# lots of warnings and all warnings as errors
-	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror -Wshadow -Wno-unused-parameter)
+	target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -pedantic -Werror -Wconversion -Wshadow -Wno-unused-parameter)
 
 	target_link_libraries(${PROJECT_NAME} PRIVATE
 		SDL2::SDL2
