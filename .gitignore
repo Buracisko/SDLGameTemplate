@@ -1,2 +1,5 @@
-build/*
-.vscode/*
+/build*
+/out
+/CMakeSettings.json
+/.vscode
+/.vs

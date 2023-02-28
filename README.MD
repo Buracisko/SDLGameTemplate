@@ -7,29 +7,17 @@ git clone https://github.com/Buracisko/SDLGameTemplate.git SDLGameTemplate
 ~~~
 This will create **SDLGameTemplate** folder with the sourcode and assets wherever you run the clone command.
 
-### 2. Create your build using CMake
-- Its recomended to use "out-of-source" build (https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#out-of-source-build-trees) that means you should create a build folder next to the repository you cloned in the step one.
-In this particular example its **SDLGameBuild**.
-- Using CMake GUI
-  - Specify **SDLGameTemplate** folder as Source
-  - Specify **SDLGameBuild** folder as Build folder.
-  - Configure (Don't forget to use the right generator accordingly to what you have available)
-  - Generate
+### 2. Configure project
+Run the **configure.bat** file to configure the project.
 
-### 3. Make junction to assets
-In order to not copy all assets, make junction between your built game and asset folder in the source.
-It can be done via command line. In this particular case, the **SDLGameTemplate** and **SDLGameBuild** folders are in *C:/MyProjects*
-~~~
-mklink /j "C:/MyProjects/SDLGameBuild/assets" "C:/MyProjects/SDLGameTemplate/assets"
-~~~
-
-### 4. Open and build project
-You can find prepared project in the **SDLGameBuild** folder.
-If you use Visual Studio, you can find **.sln** file there. Don't forget to set your project as the one being run by default.
-In case of Linux you probably want to run your **make** here.
+### 3. Open and build project
+You can find prepared project in the **build** folder including **.sln** file.
+Don't forget to set your project as the one being run by default.
 
 ---
 ## Linux setup
+**May be obsolete ATM**
+
 On my Debian Linux i needed to install the libfreetype6-dev library.
 
 ### 1. Clone this repository and initialize its submodules
