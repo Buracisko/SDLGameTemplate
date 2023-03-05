@@ -1,11 +1,11 @@
 # SDL2 Game Template
 ---
 ## Windows setup
-### 1. Clone this repository (do not initialize submodules)
+### 1. Clone this repository
+Clone this repository without initializing the git submodules.
 ~~~
-git clone https://github.com/Buracisko/SDLGameTemplate.git SDLGameTemplate
+git clone <path> MyGame
 ~~~
-This will create **SDLGameTemplate** folder with the sourcode and assets wherever you run the clone command.
 
 ### 2. Configure project
 Run the **configure.bat** file to configure the project.
