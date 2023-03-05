@@ -1,8 +1,8 @@
 #include "engine.h"
-#include "sprite.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -10,12 +10,14 @@
 // Forward function declarations
 void Update(float dt);
 void RenderFrame(float dt);
+SDL_Texture* LoadSprite(const char* path);
 
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 576
+#define WINDOW_WIDTH 640
+#define WINDOW_HEIGHT 360
 
-// Street texture
-Sprite street;
+// Testing sprite
+SDL_Texture* sprite;
+int spriteWidth, spriteHeight;
 
 //=============================================================================
 int main(int argc, char* argv[])
@@ -29,13 +31,18 @@ int main(int argc, char* argv[])
 	{
 		return 1;
 	}
-
-	street = LoadSprite("assets/cyberpunk-street.png");
+	
+	// Load sprite
+	sprite = LoadSprite("assets/kenney_piratepack/ship.png");
+	SDL_QueryTexture(sprite, NULL, NULL, &spriteWidth, &spriteHeight);
 
 	// Push functions to the game loop
 	StartLoop(Update, RenderFrame);
 
-	FreeSprite(street);
+	// Delete texture
+	if (sprite)
+		SDL_DestroyTexture(sprite);
+
 	CleanUp();
 	return 0;
 }
@@ -53,16 +60,28 @@ void Update(float dt)
 void RenderFrame(float interpolation)
 {
 	// Clear screen
-	SDL_SetRenderDrawColor(gRenderer, 65, 105, 225, 255);
+	SDL_SetRenderDrawColor(gRenderer, 0x3a, 0x2b, 0x3b, 255);
 	SDL_RenderClear(gRenderer);
 
-	// Draw sprite (scaled by factor of 3)
-	int pixelAmp = 3;
-	SDL_Rect backgroundRect = {
-		0,
-		0,
-		street.sourceRect.w * pixelAmp,
-		street.sourceRect.h * pixelAmp
+	// Draw sprite in the center of the screen
+	const SDL_Rect spriteRect = {
+		WINDOW_WIDTH / 2 - spriteWidth / 2,
+		WINDOW_HEIGHT / 2 - spriteHeight / 2,
+		spriteWidth,
+		spriteHeight
 	};
-	SDL_RenderCopy(gRenderer, street.texture, NULL, &backgroundRect);
+	SDL_RenderCopy(gRenderer, sprite, NULL, &spriteRect);
+}
+
+SDL_Texture* LoadSprite(const char* path)
+{
+
+	SDL_Texture* texture = IMG_LoadTexture(gRenderer, path);
+	if (texture == NULL)
+	{
+		fprintf(stderr, "IMG_LoadTexture error: %s\n", IMG_GetError());
+		return NULL;
+	}
+
+	return texture;
 }
