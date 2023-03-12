@@ -50,7 +50,7 @@ bool InitSDL()
 }
 
 //=============================================================================
-void CleanUp()
+void DeinitSDL()
 {
 	// Free renderer and window
 	SDL_DestroyRenderer(gRenderer);

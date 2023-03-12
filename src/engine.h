@@ -14,9 +14,9 @@ Initializes the SDL libraries.
 bool InitSDL();
 
 /*!
-Destroy renderer and window.
+Destroy renderer, window and deinit all libraries.
 */
-void CleanUp();
+void DeinitSDL();
 
 /*!
 Creates window with HW accelerated renderer. Rendering is using VSync.

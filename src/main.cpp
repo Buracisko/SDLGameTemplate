@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 	if (sprite)
 		SDL_DestroyTexture(sprite);
 
-	CleanUp();
+	DeinitSDL();
 	return 0;
 }
 
