@@ -59,6 +59,8 @@ void CleanUp()
 	gWindow = NULL;
 
 	// Quit all subsystems
+	TTF_Quit();
+	IMG_Quit();
 	SDL_Quit();
 }
 
