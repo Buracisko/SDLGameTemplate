@@ -1,8 +1,8 @@
 # SDL2 Game Template
----
+
 ## Windows setup
 ### 1. Clone this repository
-Clone this repository without initializing the git submodules.
+Clone this repository.
 ~~~
 git clone <path> MyGame
 ~~~
@@ -14,43 +14,27 @@ Run the **configure.bat** file to configure the project.
 You can find prepared project in the **build** folder including **.sln** file.
 Don't forget to set your project as the one being run by default.
 
----
 ## Linux setup
-**May be obsolete ATM**
-
-On my Debian Linux i needed to install the libfreetype6-dev library.
-
-### 1. Clone this repository and initialize its submodules
+### 0. Have a required libraries installed
+In order to buil the project, you need dev libraries: *SL2*, *SDL2_image*, *SDL2_mixer* and *SDL2_ttf*.
+You can get usually get those from your system package manager. In case of **Debian**/**Ubuntu**
 ~~~
-git clone https://github.com/Buracisko/SDLGameTemplate.git SDLGameTemplate
-cd SDLGameTemplate
-git submodule init
-git submodule update
+apt-get update
+apt-get install ibsdl2-dev libsdl2-mixer-dev libsdl2-image-dev libsdl2-ttf-dev
 ~~~
-### 2. Create your build using CMake
-- Its recomended to use "out-of-source" build (https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#out-of-source-build-trees) that means you should create a build folder next to the repository you cloned in the step one.
-In this particular example its **SDLGameBuild**.
-
-- From command line while you are in the **SDLGameTemplate** directory.
+### 1. Clone this repository
+Clone this repository.
 ~~~
-$ cmake -S . -B ../SDLGameBuild
+git clone <path> MyGame
 ~~~
 
-### 3. Build the project
-You can find prepared project in the **SDLGameBuild** folder, where you can "make" it.
-~~~
-$ make
-~~~
+### 2. Configure project
+Run the **configure.sh** file to configure the project.
 
-### 4. Create symlink to assets
-In order to not copy all assets, create symlink in your built game to asset folder in the source.
-While being in the **SDLGameBuild** folder, run:
+### 3. Build and run the project
+Build the project depending on your generator. It is *make* in most cases.
 ~~~
-$ ln -s "../SDLGameTemplate/assets/" "./assets"
-~~~
-
-### 5. Run the game
-You can run the **SDLGame** executable in the **SDLGameBuild** folder
-~~~
-SDLGameBuild$ ./SDLGame
+cd ./build
+make
+./SDLGame
 ~~~
